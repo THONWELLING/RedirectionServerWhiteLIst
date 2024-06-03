@@ -1,1 +1,29 @@
-spring.application.name=RedirectionServerWhiteLIst
+server:
+  port: 8080
+
+spring:
+#  application:
+#    name: RedirectionServerWhiteLIst
+  cloud:
+    gateway:
+      routes:
+        - id: amazon_route
+          uri: https://api.amazon.com
+          predicates:
+            - Path=/amazon/**
+          filters:
+            - StripPrefix=1
+
+        - id: mercado_livre_route
+          uri: https://api.mercadolibre.com
+          predicates:
+            - Path=/mercadolivre/**
+          filters:
+            - StripPrefix=1
+
+        - id: shopee_route
+          uri: https://api.shopee.com
+          predicates:
+            - Path=/shopee/**
+          filters:
+            - StripPrefix=1
